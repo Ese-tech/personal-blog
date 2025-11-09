@@ -22,8 +22,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${poppins.variable} ${inter.variable} antialiased bg-neutral-50 text-textDark dark:bg-[#1E1E2E] dark:text-[#EDEDF2]`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${poppins.variable} ${inter.variable} antialiased bg-neutral-50 text-textDark dark:bg-[#1E1E2E] dark:text-[#EDEDF2]`} suppressHydrationWarning>
         <div className="min-h-screen flex flex-col">
           <Header />
           <main className="flex-1 container mx-auto w-full px-4 py-8">{children}</main>

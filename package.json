@@ -1,0 +1,25 @@
+{
+  "name": "lumapress",
+  "version": "1.0.0",
+  "description": "A minimal feminine blog platform built with Next.js and Express",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"bun run dev:frontend\" \"bun run dev:backend\"",
+    "dev:frontend": "cd frontend && bun run next dev",
+    "dev:backend": "cd backend && bun run server.ts",
+    "build": "bun run build:frontend",
+    "build:frontend": "cd frontend && bun run next build",
+    "start": "bun run start:frontend",
+    "start:frontend": "cd frontend && bun run next start",
+    "install:all": "bun install && cd frontend && bun install && cd ../backend && bun install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "bun": ">=1.0.0"
+  },
+  "author": "LumaPress Team",
+  "license": "MIT"
+}

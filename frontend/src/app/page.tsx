@@ -8,7 +8,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-6">
-      <section className="bg-gradient-to-r from-secondary to-primary rounded-2xl p-8 text-center text-textDark">
+      <section className="bg-linear-to-r from-secondary to-primary rounded-2xl p-8 text-center text-textDark">
         <h1 className="text-4xl font-semibold">LumaPress</h1>
         <p className="mt-2 text-muted">Where your words shine bright.</p>
       </section>
