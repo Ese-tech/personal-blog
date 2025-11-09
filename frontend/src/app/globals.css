@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #A1C4FD;
+  --color-secondary: #C2E9FB;
+  --color-accent: #FFB6C1;
+  --color-border: #E2E8F0;
+  --color-text: #1E293B;
+  --color-bg: #F9FAFB;
+}
+
+/* Dark mode variables */
+:root.dark {
+  --color-bg: #1E1E2E;
+  --color-text: #EDEDF2;
+}
+
+html, body, #__next {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* small utilities for LumaPress */
+.card {
+  @apply bg-white dark:bg-[#111217] border border-border rounded-2xl shadow-md p-6;
+}
+
+.muted {
+  color: #6b7280;
+}
+
+/* Ensure tailwind container centers nicely */
+.container {
+  @apply max-w-4xl;
+}
+
+/* Respect fonts injected by next/font via CSS variables */
+:root {
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
