@@ -17,7 +17,7 @@ export default function EditorPage() {
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)/g, '');
 
-      await axios.post('http://localhost:5001/api/posts', { 
+      await axios.post('http://localhost:5000/api/posts', { 
         title, 
         content, 
         status: 'draft',
@@ -39,7 +39,7 @@ export default function EditorPage() {
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)/g, '');
 
-      await axios.post('http://localhost:5001/api/posts', { 
+      await axios.post('http://localhost:5000/api/posts', { 
         title, 
         content, 
         status: 'published',

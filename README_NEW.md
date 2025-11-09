@@ -45,8 +45,8 @@ NEXT_PUBLIC_API_URL=http://localhost:5001
 bun run dev
 ```
 
-- Frontend: http://localhost:3001
-- Backend: http://localhost:5001
+- Frontend: http://localhost:3000
+- Backend: http://localhost:5000
 
 ## 🏗️ Project Structure
 

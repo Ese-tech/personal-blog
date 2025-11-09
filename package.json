@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"bun run dev:frontend\" \"bun run dev:backend\"",
-    "dev:frontend": "cd frontend && bun run next dev",
+    "dev:frontend": "cd frontend && bun run next dev -p 3000",
     "dev:backend": "cd backend && bun run server.ts",
     "build": "bun run build:frontend",
     "build:frontend": "cd frontend && bun run next build",

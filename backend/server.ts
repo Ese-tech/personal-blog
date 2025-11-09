@@ -22,7 +22,7 @@ app.use("/api/users", usersRoutes);
 
 app.get("/", (_req, res) => res.json({ ok: true, name: "LumaPress API" }));
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`LumaPress API listening on port ${PORT}`);
