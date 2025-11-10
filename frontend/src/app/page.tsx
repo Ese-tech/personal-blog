@@ -13,7 +13,7 @@ export default function Home() {
         <p className="mt-2 text-muted">Where your words shine bright.</p>
       </section>
 
-      <section>
+      <section className=" bg-[#979c86] rounded-2xl p-6">
         <h3 className="text-xl font-semibold mb-4">Latest</h3>
         {sample.map((p) => (
           <PostCard key={p.slug} title={p.title} excerpt={p.excerpt} author={p.author} date={p.date} slug={p.slug} />

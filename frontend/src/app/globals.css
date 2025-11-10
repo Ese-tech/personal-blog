@@ -1,18 +1,68 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary: #A1C4FD;
-  --color-secondary: #C2E9FB;
-  --color-accent: #FFB6C1;
-  --color-border: #E2E8F0;
-  --color-text: #1E293B;
-  --color-bg: #F9FAFB;
+  /* Olive Green & Ash Grey Color Palette */
+  --color-primary: #6B7A3F;        /* Olive Green */
+  --color-secondary: #A8B48C;      /* Light Olive */
+  --color-accent: #8A9A5B;         /* Medium Olive */
+  --color-tertiary: #5A6B32;       /* Dark Olive */
+  
+  /* Ash Grey Palette */
+  --color-ash-light: #D4D6D0;      /* Light Ash Grey */
+  --color-ash: #A8ABA1;            /* Medium Ash Grey */
+  --color-ash-dark: #7A7D73;       /* Dark Ash Grey */
+  --color-ash-darker: #5C5F56;     /* Darker Ash Grey */
+  
+  /* Gradient Colors */
+  --gradient-primary: linear-gradient(135deg, #6B7A3F 0%, #8A9A5B 50%, #A8B48C 100%);
+  --gradient-secondary: linear-gradient(135deg, #A8B48C 0%, #D4D6D0 100%);
+  --gradient-accent: linear-gradient(135deg, #5A6B32 0%, #6B7A3F 100%);
+  
+  /* Semantic Colors */
+  --color-success: #6B7A3F;        /* Olive Green */
+  --color-warning: #B8860B;        /* Dark Golden */
+  --color-error: #A0522D;          /* Saddle Brown */
+  --color-info: #708090;           /* Slate Grey */
+  
+  /* Light Mode Text Colors */
+  --color-text-primary: #2C2F26;   /* Very Dark Olive */
+  --color-text-secondary: #505546; /* Dark Ash Grey */
+  --color-text-muted: #8b927b;     /* Medium Ash Grey */
+  
+  /* Light Mode Background Colors */
+  --color-bg-primary: #F5F6F2;     /* Very Light Ash */
+  --color-bg-secondary: #EAEBD6;   /* Light Olive Tint */
+  --color-bg-accent: #E2E4DC;      /* Light Ash Green */
+  
+  /* Border & Divider */
+  --color-border: #D4D6D0;         /* Light Ash Grey */
+  --color-border-light: #E8EAE1;   /* Very Light Ash */
+  
+  /* Interactive Colors */
+  --color-link: #6B7A3F;           /* Olive Green */
+  --color-link-hover: #5A6B32;     /* Dark Olive */
 }
 
 /* Dark mode variables */
 :root.dark {
-  --color-bg: #1E1E2E;
-  --color-text: #EDEDF2;
+  /* Dark Mode - Darker Olive & Ash Greys */
+  --color-bg-primary: #3e4d22;     /* Very Dark Olive */
+  --color-bg-secondary: #8f947e;   /* Dark Olive Grey */
+  --color-bg-accent: #5a614d;      /* Medium Dark Olive */
+  
+  /* Dark Mode Text Colors */
+  --color-text-primary: #cad3a9;   /* Very Light Ash */
+  --color-text-secondary: #aab494; /* Light Ash Grey */
+  --color-text-muted: #b1b3ae;     /* Medium Ash Grey */
+  
+  /* Dark Mode Borders */
+  --color-border: #5C5F56;         /* Dark Ash Grey */
+  --color-border-light: #7A7D73;   /* Medium Ash Grey */
+  
+  /* Adjust primary colors for dark mode */
+  --color-primary: #606946;        /* Lighter Olive for dark mode */
+  --color-secondary: #A8B48C;      /* Light Olive */
+  --color-accent: #B8C99A;         /* Very Light Olive */
 }
 
 html, body, #__next {
@@ -24,30 +74,192 @@ body {
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* Enhanced animations */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes pulse-scale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes bounce-gentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out;
+}
+
+.animate-slide-up-delay {
+  animation: slide-up 0.6s ease-out 0.2s both;
+}
+
+.animate-slide-up-delay-2 {
+  animation: slide-up 0.6s ease-out 0.4s both;
+}
+
+.animate-fade-in-up {
+  animation: slide-up 0.8s ease-out 0.3s both;
+}
+
+.animate-fade-in-up-delay {
+  animation: slide-up 0.8s ease-out 0.5s both;
+}
+
+.animate-pulse-scale {
+  animation: pulse-scale 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.animate-bounce-gentle {
+  animation: bounce-gentle 2s ease-in-out infinite;
+}
+
+/* Emoji enhancement for better visibility */
+.emoji-enhanced {
+  filter: contrast(1.2) brightness(1.1) saturate(1.1);
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.dark .emoji-enhanced {
+  filter: contrast(1.3) brightness(1.2) saturate(1.2);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
 /* LumaPress utilities - using standard CSS instead of @apply for v4 compatibility */
 .card {
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
   border-radius: 1rem;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   padding: 1.5rem;
+  transition: all 0.2s ease;
 }
 
-.dark .card {
-  background-color: #111217;
-  border-color: #374151;
+.card:hover {
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+  border-color: var(--color-primary);
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  transform: translateY(0);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 25px -5px rgb(107 122 63 / 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .muted {
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
 .container {
   max-width: 56rem;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* Enhanced dark mode support */
+.dark body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  color: var(--color-text-primary);
+}
+
+.dark p {
+  color: var(--color-text-secondary);
+}
+
+.dark .text-neutral-600 {
+  color: var(--color-text-muted);
+}
+
+.dark .text-neutral-700 {
+  color: var(--color-text-secondary);
+}
+
+.dark .text-neutral-500 {
+  color: var(--color-text-muted);
+}
+
+/* Form improvements */
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  transition: all 0.2s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgb(99 102 241 / 0.1);
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.5rem;
 }
 
 /* Respect fonts injected by next/font via CSS variables */

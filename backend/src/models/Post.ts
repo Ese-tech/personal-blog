@@ -11,7 +11,19 @@ const PostSchema = new mongoose.Schema(
     tags: [{ type: String }],
     categories: [{ type: String }],
     featured: { type: Boolean, default: false },
-    coverImage: { type: String },
+    coverImage: { 
+      url: { type: String },
+      publicId: { type: String },
+      width: { type: Number },
+      height: { type: Number }
+    },
+    images: [{
+      url: { type: String },
+      publicId: { type: String },
+      width: { type: Number },
+      height: { type: Number },
+      caption: { type: String }
+    }]
   },
   { timestamps: true }
 );

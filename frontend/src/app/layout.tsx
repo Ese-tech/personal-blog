@@ -3,6 +3,7 @@ import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ClientProviders from "@/components/ClientProviders";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -17,18 +18,20 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "LumaPress — Where your words shine bright.",
-  description: "LumaPress: a minimal, feminine, and modern blogging platform.",
+  description: "LumaPress: a professional, multilingual blogging platform.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.variable} ${inter.variable} antialiased bg-neutral-50 text-textDark dark:bg-[#1E1E2E] dark:text-[#EDEDF2]`} suppressHydrationWarning>
-        <div className="min-h-screen flex flex-col">
-          <Header />
-          <main className="flex-1 container mx-auto w-full px-4 py-8">{children}</main>
-          <Footer />
-        </div>
+      <body className={`${poppins.variable} ${inter.variable} antialiased bg-gradient-primary text-neutral-800`} suppressHydrationWarning>
+        <ClientProviders>
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-1 container mx-auto w-full px-4 py-8">{children}</main>
+            <Footer />
+          </div>
+        </ClientProviders>
       </body>
     </html>
   );
