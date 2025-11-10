@@ -1,96 +1,43 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { MongoClient, Db, ObjectId } from 'mongodb';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
-const MONGODB_URI = process.env.MONGODB_URI!;
-const JWT_SECRET = process.env.JWT_SECRET!;
-
-let cachedClient: MongoClient | null = null;
-let cachedDb: Db | null = null;
-
-async function connectToDatabase() {
-  if (cachedClient && cachedDb) {
-    return { client: cachedClient, db: cachedDb };
-  }
-
-  const client = new MongoClient(MONGODB_URI);
-  await client.connect();
-  const db = client.db();
-
-  cachedClient = client;
-  cachedDb = db;
-
-  return { client, db };
-}
+import { connectDB } from '@/lib/db';
+import User from '@/lib/models/User';
 
 export async function POST(request: NextRequest) {
   try {
+    await connectDB();
+    
     const { username, email, password } = await request.json();
+    if (!email || !password || !username) return NextResponse.json({ message: "Missing fields" }, { status: 400 });
 
-    if (!username || !email || !password) {
-      return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
-    }
+    const existing = await User.findOne({ email });
+    if (existing) return NextResponse.json({ message: "Email already in use" }, { status: 409 });
 
-    // Connect to database
-    const { db } = await connectToDatabase();
+    const hash = await bcrypt.hash(password, 10);
+    
+    // Assign admin role for specific emails
+    const adminEmails = ['admin@ecommerce.com', 'admin@lumapress.com'];
+    const role = adminEmails.includes(email.toLowerCase()) ? 'admin' : 'user';
+    
+    const user = await User.create({ username, email, password: hash, role });
 
-    // Check if user already exists
-    const existingUser = await db.collection('users').findOne({
-      $or: [{ email }, { username }]
-    });
+    // create JWT
+    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET || "no-secret", { expiresIn: '7d' });
 
-    if (existingUser) {
-      return NextResponse.json({ 
-        error: 'User with this email or username already exists' 
-      }, { status: 400 });
-    }
-
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create user
-    const newUser = {
-      _id: new ObjectId(),
-      username,
-      email,
-      password: hashedPassword,
-      role: 'user', // Default role
-      createdAt: new Date()
-    };
-
-    await db.collection('users').insertOne(newUser);
-
-    // Create JWT token
-    const token = jwt.sign(
-      { userId: newUser._id },
-      JWT_SECRET,
-      { expiresIn: '7d' }
-    );
-
-    // Set cookie and return response
-    const response = NextResponse.json({
-      message: 'User registered successfully',
-      user: {
-        _id: newUser._id,
-        username: newUser.username,
-        email: newUser.email,
-        role: newUser.role
-      }
-    });
-
-    response.cookies.set('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      path: '/'
+    const response = NextResponse.json({ user: { id: user._id, email: user.email, username: user.username, role: user.role } });
+    
+    // set httpOnly cookie
+    response.cookies.set('token', token, { 
+      httpOnly: true, 
+      sameSite: 'lax', 
+      secure: process.env.NODE_ENV === 'production', 
+      maxAge: 7 * 24 * 60 * 60 * 1000 
     });
 
     return response;
-
-  } catch (error) {
-    console.error('Registration error:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 }
