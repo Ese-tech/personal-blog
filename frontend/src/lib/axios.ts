@@ -1,7 +1,12 @@
 import axios from 'axios';
 
 // Configure axios defaults
-const baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+// In production on Vercel, use relative paths to the same domain
+// In development, use localhost backend
+const baseURL = process.env.NODE_ENV === 'production' 
+  ? '/api'  // Same domain, relative path
+  : 'http://localhost:5000/api';
+
 axios.defaults.baseURL = baseURL;
 axios.defaults.withCredentials = true;
 

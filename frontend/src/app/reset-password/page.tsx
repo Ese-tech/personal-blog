@@ -28,7 +28,7 @@ function ResetPasswordForm() {
     // Verify token validity
     const verifyToken = async () => {
       try {
-        await axios.get(`http://localhost:5000/api/auth/verify-reset-token/${token}`);
+        await axios.get(`/auth/verify-reset-token/${token}`);
         setValidToken(true);
       } catch (error) {
         setError('Der Reset-Link ist ungültig oder abgelaufen.');
@@ -59,7 +59,7 @@ function ResetPasswordForm() {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/auth/reset-password', {
+      await axios.post('/auth/reset-password', {
         token,
         password
       });
