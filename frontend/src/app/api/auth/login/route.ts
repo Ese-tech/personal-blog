@@ -25,6 +25,7 @@ async function connectDB() {
 
   try {
     await mongoose.connect(process.env.MONGODB_URI!)
+    console.log('MongoDB connected successfully')
     return true
   } catch (error) {
     console.error('MongoDB connection error:', error)
@@ -34,17 +35,23 @@ async function connectDB() {
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('Login attempt started')
     const { email, password } = await request.json()
     
-    await connectDB()
+    const dbConnected = await connectDB()
+    if (!dbConnected) {
+      return NextResponse.json({ message: 'Database connection failed' }, { status: 500 })
+    }
     
     const user = await User.findOne({ email })
     if (!user) {
+      console.log('User not found:', email)
       return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 })
     }
 
     const isValid = await bcrypt.compare(password, user.password)
     if (!isValid) {
+      console.log('Invalid password for user:', email)
       return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 })
     }
 
@@ -73,6 +80,7 @@ export async function POST(request: NextRequest) {
       maxAge: 7 * 24 * 60 * 60 // 7 days
     })
 
+    console.log('Login successful for user:', email)
     return response
   } catch (error) {
     console.error('Login error:', error)
