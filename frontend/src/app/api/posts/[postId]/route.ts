@@ -4,13 +4,14 @@ import Post from '@/lib/models/Post';
 import { verifyToken } from '@/lib/auth';
 
 // Edit post (author or admin) - copied from Express route
-export async function PUT(request: NextRequest, { params }: { params: { postId: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ postId: string }> }) {
   try {
     const user = await verifyToken(request);
     
     await connectDB();
     
-    const id = params.postId;
+    const { postId } = await params;
+    const id = postId;
     const post = await Post.findById(id);
     if (!post) return NextResponse.json({ message: 'Not found' }, { status: 404 });
     
@@ -43,13 +44,14 @@ export async function PUT(request: NextRequest, { params }: { params: { postId: 
 }
 
 // Delete post - copied from Express route
-export async function DELETE(request: NextRequest, { params }: { params: { postId: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ postId: string }> }) {
   try {
     const user = await verifyToken(request);
     
     await connectDB();
     
-    const id = params.postId;
+    const { postId } = await params;
+    const id = postId;
     const post = await Post.findById(id);
     if (!post) return NextResponse.json({ message: 'Not found' }, { status: 404 });
     

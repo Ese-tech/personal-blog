@@ -3,11 +3,11 @@ import { verifyToken } from '@/lib/auth';
 import { cloudinary } from '@/lib/cloudinary';
 
 // Delete image from Cloudinary - copied from Express route
-export async function DELETE(request: NextRequest, { params }: { params: { publicId: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ publicId: string }> }) {
   try {
     await verifyToken(request);
     
-    const { publicId } = params;
+    const { publicId } = await params;
     
     // Delete from Cloudinary
     const result = await cloudinary.uploader.destroy(publicId);
