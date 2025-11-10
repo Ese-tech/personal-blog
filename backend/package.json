@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "bun run server.ts",
-    "dev": "bun run server.ts"
+    "dev": "bun run server.ts",
+    "build": "tsc",
+    "postinstall": "bun run build"
   },
   "dependencies": {
     "@types/cors": "^2.8.19",

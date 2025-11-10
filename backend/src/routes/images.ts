@@ -38,8 +38,8 @@ router.post('/upload', verifyToken, upload.single('image'), async (req, res) => 
       resource_type: 'image',
       transformation: [
         { width: 1200, height: 630, crop: 'limit' }, // Limit max size
-        { quality: 'auto' }, // Auto quality optimization
-        { fetch_format: 'auto' } // Auto format (WebP, etc.)
+        { quality: 'auto' }, // Quality optimization
+        { fetch_format: 'auto' } // Format optimization (WebP, etc.)
       ]
     });
 

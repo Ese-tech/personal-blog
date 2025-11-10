@@ -58,4 +58,18 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Development Documentation (keep local only)
 ADMIN_LOGIN_GUIDE.md
+PRODUCTION_SUMMARY.md
+PROJECT_STATUS_UPDATE.md
+TYPESCRIPT_FIXES.md
+VSCODE_FIXES.md
+USER_ROLES_SYSTEM.md
+FEATURE_ROADMAP.md
+README_NEW.md
+*_NOTES.md
+*_GUIDE.md
+*_FIXES.md
+*_STATUS.md
+*_ROADMAP.md
+*_SUMMARY.md

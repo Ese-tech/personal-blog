@@ -257,17 +257,6 @@ export const translations = {
     contentManagement: "Gestion du contenu",
     platformSettings: "Paramètres de la plateforme",
     
-    // Footer & Legal
-    aboutPlatform: "Une plateforme de blog professionnelle pour les créateurs et créateurs de contenu. Partagez vos histoires avec le monde.",
-    platform: "Plateforme",
-    legal: "Juridique",
-    privacyPolicy: "Politique de confidentialité",
-    termsOfService: "Conditions d'utilisation",
-    legalNotice: "Mentions légales",
-    legalRequests: "Demandes juridiques",
-    support: "Support",
-    contact: "Contact",
-    
     // Common
     save: "Enregistrer",
     cancel: "Annuler",

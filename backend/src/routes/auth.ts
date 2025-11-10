@@ -17,7 +17,7 @@ router.post("/register", async (req, res) => {
 
     const hash = await bcrypt.hash(password, 10);
     
-    // Auto-assign admin role for specific emails
+    // Assign admin role for specific emails
     const adminEmails = ['admin@ecommerce.com', 'admin@lumapress.com'];
     const role = adminEmails.includes(email.toLowerCase()) ? 'admin' : 'user';
     
@@ -45,7 +45,7 @@ router.post("/login", async (req, res) => {
     const ok = await bcrypt.compare(password, user.password);
     if (!ok) return res.status(401).json({ message: "Invalid credentials" });
     
-    // Auto-upgrade to admin role for specific emails
+    // Upgrade to admin role for specific emails
     const adminEmails = ['admin@ecommerce.com', 'admin@lumapress.com'];
     if (adminEmails.includes(email.toLowerCase()) && user.role !== 'admin') {
       user.role = 'admin';
@@ -75,7 +75,7 @@ router.get("/me", verifyToken, async (req, res) => {
     const user = await User.findById(req.user!.id).select('-password');
     if (!user) return res.status(404).json({ message: "User not found" });
     
-    // Auto-upgrade to admin role for specific emails
+    // Upgrade to admin role for specific emails
     const adminEmails = ['admin@ecommerce.com', 'admin@lumapress.com'];
     if (adminEmails.includes(user.email.toLowerCase()) && user.role !== 'admin') {
       user.role = 'admin';
