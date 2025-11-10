@@ -1,17 +1,23 @@
 {
-  "framework": "nextjs",
-  "buildCommand": "cd frontend && npm run build",
-  "outputDirectory": "frontend/.next",
-  "installCommand": "npm install && cd frontend && npm install && cd ../backend && npm install",
-  "functions": {
-    "backend/server.ts": {
-      "runtime": "nodejs18.x"
-    }
-  },
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/api/(.*)",
-      "destination": "/backend/server.ts"
+      "src": "frontend/package.json",
+      "use": "@vercel/next"
+    },
+    {
+      "src": "backend/**/*.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/backend/server.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/$1"
     }
   ]
 }
